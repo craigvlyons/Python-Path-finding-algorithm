@@ -1,5 +1,4 @@
 import pygame
-import math
 from queue import PriorityQueue
 
 WIDTH = 800
@@ -71,6 +70,7 @@ class Node:
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
 
+    # list of all possible neighbors
     def update_neighbors(self, grid):
         self.neighbors = []
         if self.row < self.total_rows -1 and not grid[self.row +1][self.col].is_barrier(): # Down
@@ -89,12 +89,14 @@ class Node:
         return False
 
 
+# gets the distance between two points
 def h(p1, p2):
     x1, y1 = p1
     x2, y2 = p2
     return abs(x1 - x2) + abs(y1 - y2)
 
 
+# draw the found path.
 def reconstruct_path(came_from, current, draw):
     while current in came_from:
         current = came_from[current]
@@ -114,16 +116,20 @@ def algorithm(draw, grid, start, end):
 
     open_set_hash = {start}
 
+    # run until all posible neighbors are checked or end is found
     while not open_set.empty():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
 
+        # from open set after start / end postion
         current = open_set.get()[2] 
         open_set_hash.remove(current)
         
         if current == end:
+            #draw path function
             reconstruct_path(came_from, end, draw)
+            #redraw start and end color after path.
             end.make_end()
             start.make_start()
             return True
@@ -134,14 +140,18 @@ def algorithm(draw, grid, start, end):
                 came_from[neighbor] = current
                 g_score[neighbor] = temp_g_score
                 f_score[neighbor] = temp_g_score + h(neighbor.get_pos(), end.get_pos())
+                # if not already seen add to open set
                 if neighbor not in open_set_hash:
                     count += 1
+                    # keeping track of the count back to the start.
                     open_set.put((f_score[neighbor], count, neighbor))
+                    # add neighbor to open set
                     open_set_hash.add(neighbor)
                     neighbor.make_open()
 
         draw()
         if current != start:
+            # mark as seen
             current.make_closed()
 
     return False
@@ -153,8 +163,9 @@ def make_grid(rows, width):
     for i in range(rows):
         grid.append([])
         for j in range(rows):
+            #create new Node with its x, y on the grid
             node = Node(i, j, gap, rows)
-            
+            #add node to grid
             grid[i].append(node)
 
     return grid
@@ -162,8 +173,10 @@ def make_grid(rows, width):
 
 def draw_grid(win, rows, width):
     gap = width // rows
+    # draw all the horizontal lines on the screen for the grid
     for i in range(rows):
         pygame.draw.line(win, GREY, (0, i * gap), (width, i * gap))
+    # draw all the vertical lines on the screen for the grid
     for j in range(rows):
         pygame.draw.line(win, GREY, (j * gap, 0), (j * gap, width))
 
