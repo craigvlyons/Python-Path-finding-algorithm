@@ -1,2 +1,4 @@
-# Python-Path-finding-algorithm
-Python and Pygame. Visualization of the A* path finding algorithm.
+# Python Path finding game
+
+Python / Pygame / Algorithm 
+Visualization of the A* path finding algorithm.
