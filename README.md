@@ -1,7 +1,7 @@
 # Python Path finding game
 
 ## Python / Pygame / Algorithm 
-Visualization of the A star path finding algorithm. Place the start and end position, then create barriers. Pygame will start from the start position and search all available neighbors until then end position is found. Then the shortest path bettween the start and end will be drawn on the screen. 
+Visualization of the A star path finding algorithm. Place the start and end position, then create barriers. Pygame will start from the start position and search all available neighbors until then end position is found. Then the shortest path between the start and end will be drawn on the screen. 
 
 
 ## left click mouse
