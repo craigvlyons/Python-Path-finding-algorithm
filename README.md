@@ -15,7 +15,7 @@ Visualization of the A star path finding algorithm. Place the start and end posi
 
 
 
-![Alt text](image/path.png?raw=true "path.png")
+![Alt text](image/path.png?raw=true "maze.png")
 
 
 

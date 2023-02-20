@@ -17,7 +17,7 @@ def make_grid(rows, width):
         for j in range(rows):
             # create new Node with its x, y on the grid
             node = Node(i, j, gap, rows)
-            #  make barrier if none is grid boarder
+            #  make barrier if node is grid boarder
             if i == 0 or j == 0:
                 node.make_barrier()
             if i == width or j == width:
